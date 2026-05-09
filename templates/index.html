@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Caption & Post Generator</title>
+    <!-- Modern Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Caption & Post Generator</h1>
+            <p>Upload an image and let AI craft your social media content.</p>
+        </header>
+
+        <section class="upload-section">
+            <form id="generator-form">
+                <div class="form-group">
+                    <label for="image-input">Upload Image (JPG, PNG)</label>
+                    <div class="custom-file-upload">
+                        <input type="file" id="image-input" name="image" accept="image/*" required>
+                        <span id="file-name">Click to choose or drag & drop</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Additional Description (Optional)</label>
+                    <textarea id="description" name="description"
+                        placeholder="Any specific details you want to include?"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="platform">Platform</label>
+                        <select id="platform" name="platform">
+                            <option value="Instagram">Instagram</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Twitter">Twitter / X</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tone">Tone</label>
+                        <select id="tone" name="tone">
+                            <option value="Professional">Professional</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Funny">Funny</option>
+                            <option value="Motivational">Motivational</option>
+                            <option value="Sarcastic">Sarcastic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="checkbox-row">
+                    <label class="toggle">
+                        <input type="checkbox" name="emoji_option" value="Yes" checked>
+                        <span class="slider"></span>
+                        <span class="label-text">Add Emojis</span>
+                    </label>
+                    <label class="toggle">
+                        <input type="checkbox" name="hashtag_option" value="Yes" checked>
+                        <span class="slider"></span>
+                        <span class="label-text">Add Hashtags</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="generate-btn">
+                    <span class="btn-text">Generate Content</span>
+                    <div class="loader-inner hidden" id="btn-loader"></div>
+                </button>
+            </form>
+        </section>
+
+        <!-- Preview Section -->
+        <div id="image-preview-container" class="hidden">
+            <img id="image-preview" src="#" alt="Preview">
+        </div>
+
+        <!-- Output Section -->
+        <section id="output-section" class="hidden">
+            <div class="card">
+                <h3><span class="icon">✨</span> Short Caption</h3>
+                <p id="out-caption"></p>
+                <button class="copy-btn" data-target="out-caption">Copy</button>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Alternative Caption</h3>
+                <p id="out-alt-caption"></p>
+                <button class="copy-btn" data-target="out-alt-caption">Copy</button>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📝</span> Full Post</h3>
+                <p id="out-post"></p>
+                <button class="copy-btn" data-target="out-post">Copy</button>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">#️⃣</span> Hashtags</h3>
+                <div id="out-hashtags" class="hashtags-container"></div>
+                <button class="copy-btn" data-target="out-hashtags">Copy All</button>
+            </div>
+        </section>
+
+        <div id="error-message" class="error-box hidden"></div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
